@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: torino-scheduler
+  datasource:
+    url: jdbc:mysql://10.225.30.176:3307/scheduler?rewriteBatchedStatements=true
+    password: welcome
+    username: root
+  
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: always
+    properties:
+      org:
+        quartz:
+          jobStore:
+            isClustered: true
+            clusterCheckinInterval: 5000
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+          scheduler:
+            instanceId: AUTO
+
+eureka:
+  instance:
+    instance-id: torino-scheduler
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      # defaultZone: http://localhost:19000/eureka/
+      defaultZone: http://10.225.28.117:19000/eureka/
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 10000
+        readTimeout: 10000
