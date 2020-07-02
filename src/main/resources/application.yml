@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 19003
 
 spring:
   application:
@@ -21,16 +21,12 @@ spring:
             clusterCheckinInterval: 5000
             class: org.quartz.impl.jdbcjobstore.JobStoreTX
           scheduler:
-            instanceId: AUTO
+            instanceId: torino-scheduler
 
-eureka:
-  instance:
-    instance-id: torino-scheduler
-    prefer-ip-address: true
-  client:
-    serviceUrl:
-      # defaultZone: http://localhost:19000/eureka/
-      defaultZone: http://10.225.28.117:19000/eureka/
+  cloud:
+    consul:
+      host: 10.225.25.89
+      port: 32357
 
 feign:
   client:
@@ -38,3 +34,12 @@ feign:
       default:
         connectTimeout: 10000
         readTimeout: 10000
+
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+    info:
+      enabled: true
+    healtn:
+      enabled: true
